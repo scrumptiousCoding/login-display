@@ -45,6 +45,7 @@ export default defineComponent({
     let isLoginFormValid: any = ref(false);
     let emailRules: any = [
           (v: string) => {
+              // fairly standard rules for the email will be checked
               if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
                   return true;
               } else {

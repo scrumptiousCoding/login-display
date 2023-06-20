@@ -65,6 +65,7 @@ export default defineComponent({
                 }
             },
             (v: string) => {
+                //check password value for capitals, and a minimum length of 6 characters
               if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/.test(v)) {
                 return true
               } else {
