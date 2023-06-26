@@ -23,6 +23,8 @@
                 </v-list-item>
             </v-list>
           </v-card>
+
+          <modal-messages :dialogOpen="openProgressDialog" />
       </v-col>
   </v-row>
   
@@ -30,20 +32,25 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useGeneralStore } from '@/store/index'
+import { useGeneralStore } from '@/store/index';
+import ModalMessages from "@/components/ModalMessages.vue";
 
 // Components
 
 export default defineComponent({
   name: 'DashboardView',
+  components: {
+    ModalMessages
+  },
   setup(){ 
     const store = useGeneralStore();
     let dummyItems: any = ref([])
+    let openProgressDialog: any = ref(false)
     store.setDummyList();
     dummyItems = store.dummyDisplay;
 
     function inProgress(){
-        alert('Work in progress')
+        openProgressDialog = true
     }
 
     return {dummyItems, inProgress}

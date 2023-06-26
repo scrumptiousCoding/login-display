@@ -5,26 +5,34 @@ export const useGeneralStore = defineStore('general', {
     userObj: {username: '', password: '', isBanned: true},
     usersList: [
       {username: 'banned@test.com', password: 'Test1234', isBanned: true},
+      {username: 'a@t.co', password: '123', isBanned: false},
       {username: 'access@test.com', password: 'Test1234', isBanned: false}
     ],
-    dummyDisplay: [{}]
+    dummyDisplay: [{}],
+    systemMessages: [{}]
   }),
   actions: {
+    emptyMessages() {
+      this.systemMessages.splice(0);
+    },
     loginUser(payload: any) : boolean{
       let userSearch = this.usersList.find((user: any) => {return user.username === payload.username})
       
       if (userSearch !== undefined) {
         if (userSearch.isBanned === true) {
+          this.systemMessages.push({message: 'User has been banned - please contact system administrator.', type: 'warning'})
           return false;
         } else {
           if (userSearch.password === payload.password) {
             this.userObj = {username: userSearch.username, password: userSearch.password, isBanned: userSearch.isBanned}
             return true;
           } else {
+            this.systemMessages.push({message: 'Incorrect password and username.', type: 'error'})
             return false;
           }
         }
       } else {
+        this.systemMessages.push({message: 'User not found', type: 'error'})
         return false
       }
     },

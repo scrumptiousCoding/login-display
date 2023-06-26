@@ -4,6 +4,7 @@
             <v-card flat class="pa-2 text-center">
                 <v-form ref="loginForm" v-model="isLoginFormValid" class="mb-3" @submit.prevent="gotoLogin()">
                     <h4>Login</h4>
+                    <system-messages></system-messages>
                     <v-text-field
                         v-model="username"
                         label="Email"
@@ -35,9 +36,13 @@
 import router from '@/router';
 import { useGeneralStore } from '@/store/index'
 import { defineComponent, ref } from 'vue';
+import SystemMessages from '@/components/SystemMessages.vue';
 
 export default defineComponent({
   name: 'HomeView',
+  components: {
+    SystemMessages
+  },
   setup () {
     const store = useGeneralStore();
     let username: any = ref('');
@@ -63,6 +68,8 @@ export default defineComponent({
           }
       ];
     let isLoading: any = ref(false);
+
+    store.emptyMessages();
     
     function gotoLogin(){
       let user = {username: username.value, password: password.value };
@@ -75,9 +82,8 @@ export default defineComponent({
         }
         else {
           isLoading.value = false;
-          alert('Access denied.');
         }
-      }, 10000)
+      }, 2000)
     };
 
     function gotoRegister(){
