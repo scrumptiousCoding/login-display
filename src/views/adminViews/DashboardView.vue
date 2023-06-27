@@ -15,16 +15,14 @@
                             {{item.dummyText}}
                         </v-col>
                         <v-col cols="3">
-                            <v-btn block @click="inProgress()" color="primary" variant="outlined">Open task</v-btn>
-                            <v-btn block class="mt-2" @click="inProgess()" color="primary" variant="outlined">Move task</v-btn>
+                          <modal-messages :buttonName="'Open task'" message="Work in progress"/>
+                          <modal-messages :buttonName="'Move task'" message="Work in progress" class="mt-2"/>
                         </v-col>
                     </v-row>
 
                 </v-list-item>
             </v-list>
           </v-card>
-
-          <modal-messages :dialogOpen="openProgressDialog" />
       </v-col>
   </v-row>
   
@@ -49,11 +47,7 @@ export default defineComponent({
     store.setDummyList();
     dummyItems = store.dummyDisplay;
 
-    function inProgress(){
-        openProgressDialog = true
-    }
-
-    return {dummyItems, inProgress}
+    return {dummyItems, openProgressDialog}
   }
 });
 </script>
