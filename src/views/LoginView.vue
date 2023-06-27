@@ -45,12 +45,12 @@ export default defineComponent({
   },
   setup () {
     const store = useGeneralStore();
-    let username: any = ref('');
-    let password: any = ref('');
-    let isLoginFormValid: any = ref(false);
+    let username = ref<string>('');
+    let password = ref<string>('');
+    let isLoginFormValid = ref<boolean>(false);
     let emailRules: any = [
           (v: string) => {
-              // fairly standard rules for the email will be checked
+                //standard check for email validation. at the very least one letter before the @. one after and two letters after the .
               if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
                   return true;
               } else {
@@ -60,6 +60,7 @@ export default defineComponent({
       ];
     let passwordRules: any = [
           (v : string)=> {
+            // this does not check that the password is subject to all the rules of the password creation as this should not be necessary at this point
               if (v !== null && v !== '' && v !== undefined) {
                   return true;
               } else {
@@ -67,8 +68,9 @@ export default defineComponent({
               }
           }
       ];
-    let isLoading: any = ref(false);
-
+    let isLoading = ref<boolean>(false);
+    
+    // clear out messages to make sure there is none
     store.emptyMessages();
     
     function gotoLogin(){
@@ -77,13 +79,14 @@ export default defineComponent({
       
       setTimeout(() => {
         let allowUser = store.loginUser(user)
+        //if the error comes back with a positive system message that means all other checks passed. Checks is done on the store side. messages is handled there too
         if (allowUser === true) {
           router.push('/home');
         }
         else {
           isLoading.value = false;
         }
-      }, 2000)
+      }, 10000)
     };
 
     function gotoRegister(){

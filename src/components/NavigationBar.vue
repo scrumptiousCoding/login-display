@@ -23,19 +23,23 @@
 import router from '@/router';
 import { useGeneralStore } from '@/store/index'
 import { defineComponent, ref } from 'vue';
+import User from '@/types/User'
+import MenuItems from '@/types/MenuItems'
 
 export default defineComponent({
   name: 'NavigationBar',
   setup() {
     const store = useGeneralStore();
-    let user: any = ref(store.userObj);
+    let user = ref<User>(store.userObj);
     let menuItems = [
       {url: '/home', title: 'Home'},
       {url: '/dummy', title: 'Create Task'},
       {url: '/dummy', title: 'History'},
       {url: '/', title: 'Log out'}
-    ]
+    ] as MenuItems[];
+
     function goToLocation(path: string){
+      //move to path based on string but also check if the user needs to be logged out if that is what they requested
       if (path === '/') {
         store.logoutUser();
       }

@@ -43,12 +43,14 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
     name: 'Home', 
     setup () {
+        // variables
         const store = useGeneralStore();
-        let username: any = ref('');
-        let password: any = ref('');
-        let isLoginFormValid: any = ref(false);
+        let username = ref<string>('');
+        let password = ref<string>('');
+        let isLoginFormValid = ref<boolean>(false);
         let emailRules: any = [
             (v: string) => {
+                //standard check for email validation. at the very least one letter before the @. one after and two letters after the .
                 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
                     return true
                 } else {
@@ -79,7 +81,7 @@ export default defineComponent({
         }
 
         function createAccount() {
-            let user = {username: username.value, password: password.value}
+            let user = {username: username.value, password: password.value, isBanned: false}
             store.registerUser(user)
             alert('Done! Please log in');
             gotoLogin();

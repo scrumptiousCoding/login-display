@@ -4,8 +4,8 @@
           <v-card>
             <v-list>
                 <v-list-item
-                    v-for="item in dummyItems"
-                    :key="item.title">
+                    v-for="(item, id) in dummyItems"
+                    :key="item.id">
 
                     <v-row>
                         <v-col cols="2" align="center">
@@ -32,8 +32,7 @@
 import { defineComponent, ref } from 'vue';
 import { useGeneralStore } from '@/store/index';
 import ModalMessages from "@/components/ModalMessages.vue";
-
-// Components
+import DummyItems from '@/types/DummyItems';
 
 export default defineComponent({
   name: 'DashboardView',
@@ -42,12 +41,9 @@ export default defineComponent({
   },
   setup(){ 
     const store = useGeneralStore();
-    let dummyItems: any = ref([])
-    let openProgressDialog: any = ref(false)
-    store.setDummyList();
-    dummyItems = store.dummyDisplay;
+    let dummyItems = ref<DummyItems[]>(store.getDummyList())
 
-    return {dummyItems, openProgressDialog}
+    return {dummyItems}
   }
 });
 </script>

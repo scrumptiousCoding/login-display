@@ -1,15 +1,16 @@
 import { defineStore } from 'pinia'
+import DummyItems from '@/types/DummyItems'
+import SystemMessages from '@/types/Messages'
+import User from '@/types/User'
 
 export const useGeneralStore = defineStore('general', {
   state: () => ({ 
-    userObj: {username: '', password: '', isBanned: true},
+    userObj: {} as User,
     usersList: [
       {username: 'banned@test.com', password: 'Test1234', isBanned: true},
-      {username: 'a@t.co', password: '123', isBanned: false},
       {username: 'access@test.com', password: 'Test1234', isBanned: false}
-    ],
-    dummyDisplay: [{}],
-    systemMessages: [{}]
+    ] as User[],
+    systemMessages: [] as SystemMessages[]
   }),
   actions: {
     emptyMessages() {
@@ -36,14 +37,14 @@ export const useGeneralStore = defineStore('general', {
         return false
       }
     },
-    registerUser(payload: any){
-      this.usersList.push({username: payload.username, password: payload.password, isBanned: false})
+    registerUser(payload: User){
+      this.usersList.push({username: payload.username, password: payload.password, isBanned: payload.isBanned})
     },
-    setDummyList() {
-      this.dummyDisplay = [
-        {imageUrl: 'https://picsum.photos/400', dummyText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'},
-        {imageUrl: 'https://picsum.photos/500', dummyText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'},
-        {imageUrl: 'https://picsum.photos/600', dummyText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}
+    getDummyList() : DummyItems[] {
+      return [
+        {id: 1, imageUrl: 'https://picsum.photos/400', dummyText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'},
+        {id: 2, imageUrl: 'https://picsum.photos/500', dummyText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'},
+        {id: 3, imageUrl: 'https://picsum.photos/600', dummyText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}
       ]
     },
     logoutUser() {

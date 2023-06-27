@@ -5,12 +5,13 @@
 <script lang="ts">
 import { useGeneralStore } from '@/store/index'
 import { defineComponent, ref } from 'vue';
+import SystemMessages from '@/types/Messages'
 
 export default defineComponent({
   name: 'SystemMessages',
   setup() {
     const store = useGeneralStore();
-    let errors:  any = ref(store.systemMessages);
+    let errors = ref<SystemMessages[]>(store.systemMessages);
     return {
         errors
     }

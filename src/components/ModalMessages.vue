@@ -12,7 +12,7 @@
           {{message}}
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" block @click="openProgressDialog = false">Close Dialog</v-btn>
+          <v-btn color="primary" block @click="openProgressDialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -29,10 +29,8 @@ export default defineComponent({
     buttonName: String
   },
   setup () {
-    let openProgressDialog: any = ref(false)
-
+    let openProgressDialog = ref<boolean>(false)
     return {openProgressDialog}
-
   }
 });
 </script>
